@@ -12,6 +12,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void funcaoTeste (){
-        // e ai Riyadh ?
+        // atentendo a pedidos, alteração feita
     }
 }
