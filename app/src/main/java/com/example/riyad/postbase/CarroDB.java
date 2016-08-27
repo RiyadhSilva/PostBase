@@ -2,9 +2,13 @@ package com.example.riyad.postbase;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by riyad on 27/08/2016.
@@ -65,5 +69,87 @@ public class CarroDB extends SQLiteOpenHelper {
         }
     }
 
+    //Deleta o carro
+    public int delete(Carro carro){
+        SQLiteDatabase db = getWritableDatabase();
+        try{
+            //delete from carro where _id=?
+            int count = db.delete("carro", "_id=?", new String[]{String.valueOf(carro.id)});
+            Log.i(TAG, "Deletou [" + count + "] registro.");
+            return count;
+        }finally {
+            db.close();
+        }
+    }
+
+    //Deleta os carros do tipo fornecido
+    public int deleteCarrosByTipo(String tipo){
+        SQLiteDatabase db = getWritableDatabase();
+        try{
+            //delete from carro where _id=?
+            int count = db.delete("carro", "tipo=?", new String[]{tipo});
+            Log.i(TAG, "Deletou [" + count + "] registros.");
+            return count;
+        }finally {
+            db.close();
+        }
+    }
+
+    //Consulta a lista com todos os carros
+    public List<Carro> findAll(){
+        SQLiteDatabase db = getWritableDatabase();
+        try{
+            //Select * from carro
+            Cursor c = db.query("carro", null, null, null, null, null, null, null);
+            return toList(c);
+        }finally {
+            db.close();
+        }
+    }
+
+    //Consulta o carro pelo tipo
+    public List<Carro> findAllByTipo(String tipo){
+        SQLiteDatabase db = getWritableDatabase();
+        try{
+            //select * from carro where tipo=?
+            Cursor c = db.query("carro", null, "tipo='" + tipo + "'", null, null, null, null);
+            return toList(c);
+        }finally {
+            db.close();
+        }
+    }
+
+    //Le o cursor e cria a lista de carros
+    private List<Carro> toList(Cursor c){
+        List<Carro> carros = new ArrayList<Carro>();
+        if(c.moveToFirst()){
+            do{
+                Carro carro = new Carro();
+                carros.add(carro);
+                //Recupera os atributos de carro
+                carro.id = c.getLong(c.getColumnIndex("_id"));
+                carro.nome = c.getString(c.getColumnIndex("nome"));
+                carro.desc = c.getString(c.getColumnIndex("desc"));
+                carro.urlFoto = c.getString(c.getColumnIndex("url_foto"));
+                carro.urlInfo = c.getString(c.getColumnIndex("url_info"));
+                carro.urlVideo = c.getString(c.getColumnIndex("url_video"));
+                carro.latitude = c.getString(c.getColumnIndex("latitude"));
+                carro.longitude = c.getString(c.getColumnIndex("longitude"));
+                carro.tipo = c.getString(c.getColumnIndex("tipo"));
+            } while(c.moveToNext());
+        }
+
+        return carros;
+    }
+
+    //Executa um SQL
+    public void execSQL(String sql){
+        SQLiteDatabase db = getWritableDatabase();
+        try{
+            db.execSQL(sql);
+        }finally {
+            db.close();
+        }
+    }
     
 }
