@@ -10,10 +10,10 @@
         android:layout_weight="1"
         android:layout_margin="10dp">
     </ListView>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@color/colorPrimary">
-    </view>
+    </View>
 
 </LinearLayout>

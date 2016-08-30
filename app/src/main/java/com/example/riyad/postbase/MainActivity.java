@@ -1,5 +1,6 @@
 package com.example.riyad.postbase;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -40,6 +41,9 @@ public  class MainActivity extends AppCompatActivity{
         cardView = (CardView) findViewById(R.id.cardView);
         cardView.setCardElevation(0);
         cardView.setRadius(25);
+
+        Intent intent = new Intent(this, ListViewActivity.class);
+        startActivity(intent);
     }
 
 
