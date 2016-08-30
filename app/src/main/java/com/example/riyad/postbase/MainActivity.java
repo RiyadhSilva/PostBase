@@ -6,42 +6,35 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.widget.SeekBar;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public  class MainActivity extends AppCompatActivity{
-
-    public CardView cardView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //CarroDB carrodb = new CarroDB(this);
-/*
-        Carro carro = new Carro();
-        carro.tipo="sedan";
-        carro.nome="fiat galaxy";
-        carro.desc = "Completao e economico";
-        carro.urlFoto = "X";
-        carro.urlInfo = "Y";
-        carro.urlVideo =  "Z";
-        carro.latitude="1";
-        carro.longitude="1";
 
-        carrodb.save(carro);
+        PostDB postDB = new PostDB(this);
+
+/*        Post post = new Post();
+        post.autor = "Riyadh Levi";
+        int ano = 2015;
+        int mes = 9;
+        int dia = 25;
+        post.data  = new GregorianCalendar(ano, mes, dia);
+        post.desc="Eba, logo, logo eh outubro xD";
+        postDB.save(post);
 */
 
-/*        List<Carro> carros = carrodb.findAll();
+/*        List<Post> posts = postDB.findAllByAutor("Felipe Fernandes");
 
-        for (Carro c: carros) {
-            System.out.println("id: " + c.id +" Nome: " + c.nome);
+        for (Post p: posts) {
+            System.out.println("id: " + p.id +" Autor: " + p.autor +" Desc: " + p.desc);
+
         }
 */
-        cardView = (CardView) findViewById(R.id.cardView);
-        cardView.setCardElevation(0);
-        cardView.setRadius(25);
-
         Intent intent = new Intent(this, ListViewActivity.class);
         startActivity(intent);
     }
