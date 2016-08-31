@@ -12,8 +12,9 @@ public class Post implements Serializable{
     private static final long serialVersionUID = 6601006766832473959L;
     public long id;
     public String autor;
-    public GregorianCalendar data;
+    public String data;
     public String desc;
+    public String curtidas;
     public List<Comentario> comentarios;
 
     @Override
@@ -23,6 +24,7 @@ public class Post implements Serializable{
                 ", autor='" + autor + '\'' +
                 ", data=" + data +
                 ", desc='" + desc + '\'' +
+                ", curtidas=" + curtidas +
                 ", comentarios=" + comentarios +
                 '}';
     }

@@ -4,6 +4,6 @@
     <string name="action_new">Novo Post</string>
     <string name="action_search">Pesquisar</string>
     <string name="action_refresh">Atualizar</string>
-    <string name="action_delete">Deletar</string>
+    <string name="action_delete">Deletar Tudo</string>
     <string name="action_settings">Settings</string>
 </resources>

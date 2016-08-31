@@ -10,6 +10,7 @@ import android.util.Log;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by riyad on 30/08/2016.
@@ -17,7 +18,7 @@ import java.util.List;
 public class PostDB extends SQLiteOpenHelper {
     private static final String TAG = "sql";
     //Nome do banco
-    public static final String NOME_BANCO = "postbase.sqlite";
+    public static final String NOME_BANCO = "post-database.sqlite";
     //Versao do banco
     private static final int VERSAO_BANCO = 1;
 
@@ -31,7 +32,7 @@ public class PostDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "Criando a Tabela post...");
         db.execSQL("create table if not exists post(_id integer primary key " +
-                "autoincrement, autor text, data text, desc text);");
+                "autoincrement, autor text, data text, desc text, curtidas text);");
         Log.d(TAG, "Tabela criada com sucesso");
 
     }
@@ -48,12 +49,13 @@ public class PostDB extends SQLiteOpenHelper {
         try{
             ContentValues values = new ContentValues();
             values.put("autor", post.autor);
-            values.put("data", post.data.toString());
+            values.put("data", post.data);
             values.put("desc", post.desc);
+            values.put("curtidas", post.curtidas);
             if(id != 0){
                 String _id = String.valueOf(post.id);
                 String[]whereArgs = new String[]{_id};
-                //update carro set values = ... where id=?
+                //update post set values = ... where id=?
                 int count = db.update("post", values, "_id=?", whereArgs);
                 Log.d(TAG, "Post atualizado com sucesso");
                 return count;
@@ -115,7 +117,9 @@ public class PostDB extends SQLiteOpenHelper {
                 //Recupera os atributos de post
                 post.id = c.getLong(c.getColumnIndex("_id"));
                 post.autor = c.getString(c.getColumnIndex("autor"));
+                post.data  = c.getString(c.getColumnIndex("data"));
                 post.desc  = c.getString(c.getColumnIndex("desc"));
+                post.curtidas = c.getString(c.getColumnIndex("curtidas"));
             } while(c.moveToNext());
         }
 

@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public  class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     protected final String TAG = "livro";
     private ListView listView;
@@ -25,30 +27,20 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         //Ativa a exibicao do icone na action bar
         actionBar.setDisplayShowHomeEnabled(true);
 
-        //PostDB postDB = new PostDB(this);
-/*
-        Post post = new Post();
-        post.autor = "Riyadh Levi";
-        int ano = 2016;
-        int mes = 8;
-        int dia = 31;
-        post.data  = new GregorianCalendar(ano, mes, dia);
-        post.desc="A vingança nunca é plena, mata a alma e a envenena";
-        postDB.save(post);
-*/
+        PostDB postDB = new PostDB(this);
         //Listview
         listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(new SimpleAdapter(this));
         listView.setOnItemClickListener(this);
 
 
-       //List<Post> posts = postDB.findAll();
+       List<Post> posts = postDB.findAll();
 
-/*       for (Post p: posts) {
-            System.out.println("id: " + p.id +" Autor: " + p.autor +" Desc: " + p.desc);
+       for (Post p: posts) {
+            System.out.println("id: " + p.id +" Autor: " + p.autor +" Desc: " + p.desc + " Data: " + p.data);
 
         }
-*/
+
 //        Intent intent = new Intent(this, ListViewActivity.class);
 //        startActivity(intent);
 //        System.out.println("Quantidade de posts: " + posts.size());
@@ -85,7 +77,15 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
             startActivity(intent);
             return true;
         } else if (id == R.id.action_delete){
-            toast("Clicou em deletar!");
+            PostDB postDB = new PostDB(this);
+            List<Post> posts = postDB.findAll();
+            for (Post p:
+                 posts) {
+                postDB.delete(p);
+            }
+            toast("Todos os posts foram deletados!");
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
             return true;
         } else if (id == R.id.action_settings){
             toast("Clicou em settings!");

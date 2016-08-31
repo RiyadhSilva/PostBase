@@ -10,9 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Random;
+import java.util.StringTokenizer;
 
 public class NovoPost extends AppCompatActivity {
     private EditText autor;
@@ -38,12 +41,14 @@ public class NovoPost extends AppCompatActivity {
         post.autor = autor.getText().toString();
         //Tratamento da data
         Date data = new Date(System.currentTimeMillis());
-        int ano = data.getDay();
-        int mes = data.getMonth();
-        int dia = data.getDay();
-        post.data = new GregorianCalendar(ano, mes, dia);
-        //
+        String data_formatada = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data);
+        post.data = data_formatada;
+        System.out.println("A data definda foi: " + post.data);
         post.desc = desc.getText().toString();
+        //Cria um valor aleatório para o número de curtidas
+        Random gerador = new Random();
+        int numero = gerador.nextInt(100);
+        post.curtidas = String.valueOf(numero);
         //Inicia conexao com o Banco
         PostDB postDB = new PostDB(this);
         //Salva o post criado no banco
