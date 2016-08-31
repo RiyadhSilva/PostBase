@@ -70,7 +70,8 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
             startActivity(intent);
             return true;
         }else if (id == R.id.action_search){
-            toast("Clicou em pesquisar!");
+            Intent i = new Intent(this, PesquisarActivity.class);
+            startActivity(i);
             return true;
         } else if (id == R.id.action_refresh){
             Intent intent = new Intent(this, MainActivity.class);
@@ -86,9 +87,6 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
             toast("Todos os posts foram deletados!");
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
-            return true;
-        } else if (id == R.id.action_settings){
-            toast("Clicou em settings!");
             return true;
         }
 
