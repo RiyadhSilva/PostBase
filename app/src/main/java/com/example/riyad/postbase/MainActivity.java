@@ -17,26 +17,27 @@ public  class MainActivity extends AppCompatActivity{
 
 
         PostDB postDB = new PostDB(this);
-
-/*        Post post = new Post();
-        post.autor = "Riyadh Levi";
-        int ano = 2015;
-        int mes = 9;
-        int dia = 25;
+/*
+        Post post = new Post();
+        post.autor = "Jefferson Pires";
+        int ano = 2016;
+        int mes = 10;
+        int dia = 3;
         post.data  = new GregorianCalendar(ano, mes, dia);
-        post.desc="Eba, logo, logo eh outubro xD";
+        post.desc="Oh glória, ganhei na raspadinha... Agora vou atrás de um salgado...";
         postDB.save(post);
 */
 
-/*        List<Post> posts = postDB.findAllByAutor("Felipe Fernandes");
+       List<Post> posts = postDB.findAll();
 
-        for (Post p: posts) {
+/*       for (Post p: posts) {
             System.out.println("id: " + p.id +" Autor: " + p.autor +" Desc: " + p.desc);
 
         }
 */
         Intent intent = new Intent(this, ListViewActivity.class);
         startActivity(intent);
+        System.out.println("Quantidade de posts: " + posts.size());
     }
 
 
