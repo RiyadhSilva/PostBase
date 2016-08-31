@@ -29,24 +29,27 @@
         android:layout_height="wrap_content"
         android:text="Pesquisar"
         android:id="@+id/bt_pesquisar"
+        android:onClick="pesquisar"
         android:layout_below="@+id/pesquisar_et_1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:onClick="pesquisar" />
-
-    <ListView
-        android:layout_below="@+id/bt_pesquisar"
-        android:id="@+id/pesquisar_listview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="10dp">
-    </ListView>
+        android:layout_centerHorizontal="true" />
     <View
-        android:layout_below="@+id/pesquisar_listview"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/bt_pesquisar"
+        android:id="@+id/view">
     </View>
+    <ListView
+        android:id="@+id/pesquisar_listview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/view">
+
+    </ListView>
+
 
 </RelativeLayout>

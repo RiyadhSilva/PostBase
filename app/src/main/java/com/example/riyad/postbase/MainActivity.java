@@ -22,7 +22,7 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
 
         //Define o título da actionBar
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Feed");
+        actionBar.setTitle("Time Line");
         actionBar.setDisplayShowTitleEnabled(true);
         //Ativa a exibicao do icone na action bar
         actionBar.setDisplayShowHomeEnabled(true);

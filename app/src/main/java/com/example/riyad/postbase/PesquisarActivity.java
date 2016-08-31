@@ -48,11 +48,11 @@ public class PesquisarActivity extends AppCompatActivity {
         if(this.pesquisa_post.size() == 0){
             toast("Pesquisa sem resultados!");
         }else{
-            //Cria a listview
-            listView = (ListView)findViewById(R.id.pesquisar_listview);
-            listView.setAdapter(new SimpleAdapter(this));
 
-            toast("A pesquisa encontrou: " + pesquisa_post.size());
+            toast("A pesquisa encontrou: " + pesquisa_post.size() + " resultados!");
+            listView = (ListView) findViewById(R.id.pesquisar_listview);
+            listView.setAdapter(new PesquisaAdapter(this, this.pesquisa_post));
+
         }
 
     }
