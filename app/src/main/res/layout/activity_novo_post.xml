@@ -45,11 +45,11 @@
         android:layout_height="wrap_content"
         android:text="Postar"
         android:id="@+id/bt"
-        android:layout_marginBottom="101dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="49dp"
         android:clickable="true"
-        android:onClick="postar" />
+        android:onClick="postar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,7 +68,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp"
-        android:checked="false" />
+        android:checked="false"
+        android:clickable="true"
+        android:onClick="onCheckboxClicked" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -77,7 +79,8 @@
         android:id="@+id/novo_post_cb_normal"
         android:layout_alignTop="@+id/novo_post_cb_baixo"
         android:layout_centerHorizontal="true"
-        android:checked="false" />
+        android:checked="false"
+        android:onClick="onCheckboxClicked" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -87,5 +90,6 @@
         android:layout_alignTop="@+id/novo_post_cb_normal"
         android:layout_alignRight="@+id/novo_post_et_2"
         android:layout_alignEnd="@+id/novo_post_et_2"
-        android:checked="false" />
+        android:checked="false"
+        android:onClick="onCheckboxClicked" />
 </RelativeLayout>

@@ -15,6 +15,7 @@ public class Post implements Serializable{
     public String data;
     public String desc;
     public String curtidas;
+    public String prioridade;
     public List<Comentario> comentarios;
 
     @Override
@@ -22,9 +23,10 @@ public class Post implements Serializable{
         return "Post{" +
                 "id=" + id +
                 ", autor='" + autor + '\'' +
-                ", data=" + data +
+                ", data='" + data + '\'' +
                 ", desc='" + desc + '\'' +
-                ", curtidas=" + curtidas +
+                ", curtidas='" + curtidas + '\'' +
+                ", prioridade='" + prioridade + '\'' +
                 ", comentarios=" + comentarios +
                 '}';
     }

@@ -157,7 +157,14 @@ public class SimpleAdapter extends BaseAdapter{
 
         //Parte do CardView
         int count = 0;
-        c.setCardBackgroundColor(Color.parseColor("#533B4D"));
+        if(posts().get(posts().size() - position - 1).prioridade.equals("baixa")){
+            c.setCardBackgroundColor(Color.parseColor("#EFEFEF"));
+        }else if (posts().get(posts().size() - position - 1).prioridade.equals("normal")){
+            c.setCardBackgroundColor(Color.parseColor("#CAEBF2"));
+        } else if (posts().get(posts().size() - position - 1).prioridade.equals("alta")){
+            c.setCardBackgroundColor(Color.parseColor("#FF3B3F"));
+        }
+
         c.setRadius(5f);
         c.setUseCompatPadding(true);
         c.setMinimumHeight(100);

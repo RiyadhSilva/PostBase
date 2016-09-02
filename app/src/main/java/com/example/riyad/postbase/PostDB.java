@@ -18,7 +18,7 @@ import java.util.Random;
 public class PostDB extends SQLiteOpenHelper {
     private static final String TAG = "sql";
     //Nome do banco
-    public static final String NOME_BANCO = "post-database.sqlite";
+    public static final String NOME_BANCO = "post-data-base.sqlite";
     //Versao do banco
     private static final int VERSAO_BANCO = 1;
 
@@ -32,7 +32,8 @@ public class PostDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "Criando a Tabela post...");
         db.execSQL("create table if not exists post(_id integer primary key " +
-                "autoincrement, autor text, data text, desc text, curtidas text);");
+                "autoincrement, autor text, data text, desc text, curtidas text, " +
+                "prioridade text);");
         Log.d(TAG, "Tabela criada com sucesso");
 
     }
@@ -52,6 +53,7 @@ public class PostDB extends SQLiteOpenHelper {
             values.put("data", post.data);
             values.put("desc", post.desc);
             values.put("curtidas", post.curtidas);
+            values.put("prioridade", post.prioridade);
             if(id != 0){
                 String _id = String.valueOf(post.id);
                 String[]whereArgs = new String[]{_id};
@@ -120,6 +122,7 @@ public class PostDB extends SQLiteOpenHelper {
                 post.data  = c.getString(c.getColumnIndex("data"));
                 post.desc  = c.getString(c.getColumnIndex("desc"));
                 post.curtidas = c.getString(c.getColumnIndex("curtidas"));
+                post.prioridade = c.getString(c.getColumnIndex("prioridade"));
             } while(c.moveToNext());
         }
 
