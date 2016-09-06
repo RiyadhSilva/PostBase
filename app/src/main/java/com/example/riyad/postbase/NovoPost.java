@@ -29,7 +29,9 @@ public class NovoPost extends AppCompatActivity {
         setContentView(R.layout.activity_novo_post);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Novo Post");
+        actionBar.setTitle("Novo Card");
+        actionBar.setIcon(R.drawable.ic_action_add);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         autor = (EditText) findViewById(R.id.novo_post_et_1);
@@ -45,7 +47,6 @@ public class NovoPost extends AppCompatActivity {
         switch (view.getId()){
             case R.id.novo_post_cb_baixo:
                 if(checked){
-                    toast("Prioridade Baixa");
                     post.prioridade = "baixa";
                 }else{
                     toast("...");
@@ -54,7 +55,6 @@ public class NovoPost extends AppCompatActivity {
                 break;
             case R.id.novo_post_cb_normal:
                 if(checked){
-                    toast("Prioridade Normal");
                     post.prioridade = "normal";
                 }else{
                     toast("...");
@@ -63,7 +63,6 @@ public class NovoPost extends AppCompatActivity {
                 break;
             case R.id.novo_post_cb_alto:
                 if(checked){
-                    toast("Prioridade Alta");
                     post.prioridade = "alta";
                 }else{
                     toast("...");
@@ -77,7 +76,7 @@ public class NovoPost extends AppCompatActivity {
         post.autor = autor.getText().toString();
         //Tratamento da data
         Date data = new Date(System.currentTimeMillis());
-        String data_formatada = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data);
+        String data_formatada = new SimpleDateFormat("dd/MM/yyyy").format(data);
         post.data = data_formatada;
         System.out.println("A data definda foi: " + post.data);
         post.desc = desc.getText().toString();
@@ -91,7 +90,7 @@ public class NovoPost extends AppCompatActivity {
         PostDB postDB = new PostDB(this);
         //Salva o post criado no banco
         postDB.save(post);
-        toast("Postado com sucesso!");
+        toast("Criado com sucesso!");
 
         //Chama a Activity principal
         Intent intent = new Intent(this, MainActivity.class);

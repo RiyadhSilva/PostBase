@@ -16,7 +16,7 @@ public class Post implements Serializable{
     public String desc;
     public String curtidas;
     public String prioridade;
-    public List<Comentario> comentarios;
+
 
     @Override
     public String toString() {
@@ -27,7 +27,6 @@ public class Post implements Serializable{
                 ", desc='" + desc + '\'' +
                 ", curtidas='" + curtidas + '\'' +
                 ", prioridade='" + prioridade + '\'' +
-                ", comentarios=" + comentarios +
                 '}';
     }
 }

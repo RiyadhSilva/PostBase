@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PesquisarActivity extends AppCompatActivity {
+public class PesquisarActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private EditText autor;
     private TextView textView;
     private Button   bt_pesquisar;
@@ -33,10 +34,15 @@ public class PesquisarActivity extends AppCompatActivity {
         bt_pesquisar = (Button) findViewById(R.id.bt_pesquisar);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(R.drawable.ic_action_search);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setTitle("Pesquisar Post");
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    public void onItemClick(AdapterView<?> parent, View view, int idx, long id){
+        Toast.makeText(this, "posição: " + idx, Toast.LENGTH_SHORT).show();
+    }
 
     public void pesquisar(View view){
         String autor_nome = autor.getText().toString();
@@ -61,4 +67,5 @@ public class PesquisarActivity extends AppCompatActivity {
 
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+
 }

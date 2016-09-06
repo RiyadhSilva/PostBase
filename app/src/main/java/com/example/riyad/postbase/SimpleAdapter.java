@@ -126,7 +126,7 @@ public class SimpleAdapter extends BaseAdapter{
                 //Deleta o elemento na posicao
                 postDB.delete(posts.get(position));
                 //
-                toast("Post excluído!");
+                toast("Atividade excluída!");
                 c.startAnimation(a);
             }
         });
@@ -159,10 +159,22 @@ public class SimpleAdapter extends BaseAdapter{
         int count = 0;
         if(posts().get(posts().size() - position - 1).prioridade.equals("baixa")){
             c.setCardBackgroundColor(Color.parseColor("#EFEFEF"));
+            t.setTextColor(Color.parseColor("#463239"));
+            p.setTextColor(Color.parseColor("#463239"));
+            l.setTextColor(Color.parseColor("#463239"));
+            d.setTextColor(Color.parseColor("#463239"));
         }else if (posts().get(posts().size() - position - 1).prioridade.equals("normal")){
             c.setCardBackgroundColor(Color.parseColor("#CAEBF2"));
+            t.setTextColor(Color.parseColor("#254D32"));
+            p.setTextColor(Color.parseColor("#254D32"));
+            l.setTextColor(Color.parseColor("#254D32"));
+            d.setTextColor(Color.parseColor("#254D32"));
         } else if (posts().get(posts().size() - position - 1).prioridade.equals("alta")){
             c.setCardBackgroundColor(Color.parseColor("#FF3B3F"));
+            t.setTextColor(Color.parseColor("#D0DB97"));
+            p.setTextColor(Color.parseColor("#D0DB97"));
+            l.setTextColor(Color.parseColor("#D0DB97"));
+            d.setTextColor(Color.parseColor("#D0DB97"));
         }
 
         c.setRadius(5f);
@@ -174,7 +186,6 @@ public class SimpleAdapter extends BaseAdapter{
         c.addView(bt_deletar, count);
         c.addView(bt_curtir, count);
         c.addView(d, count);
-        c.addView(l, count);
         count++;
 
         return c;

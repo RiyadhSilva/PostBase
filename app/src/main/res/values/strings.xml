@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PostBase</string>
     <string name="hello_world">Hello World!</string>
-    <string name="action_new">Novo Post</string>
+    <string name="action_new">Novo Card</string>
     <string name="action_search">Pesquisar</string>
     <string name="action_refresh">Atualizar</string>
     <string name="action_delete">Deletar Tudo</string>

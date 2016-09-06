@@ -20,8 +20,12 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         //Define o título da actionBar
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(R.drawable.ic_action_rss);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setTitle("Time Line");
         actionBar.setDisplayShowTitleEnabled(true);
         //Ativa a exibicao do icone na action bar

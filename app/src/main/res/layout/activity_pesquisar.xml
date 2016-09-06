@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insira o nome do autor:"
+        android:text="Insira o nome da atividade:"
         android:id="@+id/pesquisar_tv_1"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -47,7 +47,10 @@
         android:layout_weight="1"
         android:layout_margin="10dp"
         android:layout_marginTop="100dp"
-        android:layout_below="@+id/view">
+        android:layout_below="@+id/view"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:touchscreenBlocksFocus="true">
 
     </ListView>
 
