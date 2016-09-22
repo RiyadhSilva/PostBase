@@ -29,9 +29,9 @@ public class NovoPost extends AppCompatActivity {
         setContentView(R.layout.activity_novo_post);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Novo Card");
         actionBar.setIcon(R.drawable.ic_action_add);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setTitle("Novo Card");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         autor = (EditText) findViewById(R.id.novo_post_et_1);
@@ -106,7 +106,7 @@ public class NovoPost extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //Infla o menu com os botoes da actionbar
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_novo, menu);
         return true;
     }
 

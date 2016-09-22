@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -66,6 +67,14 @@ public class PesquisarActivity extends AppCompatActivity implements AdapterView.
     private void toast(String msg){
 
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    //ActionBar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        //Infla o menu com os botoes da actionbar
+        getMenuInflater().inflate(R.menu.menu_novo, menu);
+        return true;
     }
 
 }
