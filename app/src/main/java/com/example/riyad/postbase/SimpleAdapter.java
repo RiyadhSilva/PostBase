@@ -35,6 +35,10 @@ import java.util.TimerTask;
  */
 public class SimpleAdapter extends BaseAdapter{
     private Context context;
+    //Instancia um timer
+    public Timer timer = null;
+    //Um boolean para saber se a tarefa esta em execucao ou nao
+    public boolean play = false;
     public SimpleAdapter(Context context){
         super();
         this.context = context; // O contexto é necessário para criar a view
@@ -141,16 +145,15 @@ public class SimpleAdapter extends BaseAdapter{
         bt_curtir.setY(0f);
         bt_curtir.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        bt_curtir.setImageResource(R.drawable.ic_star);
+        bt_curtir.setImageResource(R.drawable.ic_action_play);
         bt_curtir.setOnClickListener(new View.OnClickListener() {
             Post post = new Post();
             int  valor_atual;
             @Override
             public void onClick(View v) {
-                //Instancia um timer
-                Timer timer = null;
                 final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
                 if(timer == null){
+                    bt_curtir.setImageResource(R.drawable.ic_action_stop);
                     timer = new Timer();
                     TimerTask tarefa = new TimerTask() {
                         @Override
@@ -164,6 +167,10 @@ public class SimpleAdapter extends BaseAdapter{
                     };
 
                     timer.scheduleAtFixedRate(tarefa, 0, 1000);
+                }else{
+                    bt_curtir.setImageResource(R.drawable.ic_action_play);
+                    toast("Tarefa encerrada!");
+                    timer.cancel();
                 }
                 //Pega o post atual
                 post = posts().get(posts().size() - position - 1);
@@ -173,7 +180,6 @@ public class SimpleAdapter extends BaseAdapter{
                 //Atualiza o elemento no banco
                 postDB.save(post);
                 toast("Tarefa iniciada!");
-                bt_curtir.setImageResource(R.drawable.ic_stop);
                 l.setText(post.curtidas);
             }
         });

@@ -73,7 +73,7 @@ public class PesquisarActivity extends AppCompatActivity implements AdapterView.
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //Infla o menu com os botoes da actionbar
-        getMenuInflater().inflate(R.menu.menu_novo, menu);
+        getMenuInflater().inflate(R.menu.menu_pesquisa, menu);
         return true;
     }
 
