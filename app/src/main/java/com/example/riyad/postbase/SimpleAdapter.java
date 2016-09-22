@@ -152,7 +152,37 @@ public class SimpleAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                Timer ini;
                 if(timer == null){
+                    play = true;
+                    bt_curtir.setImageResource(R.drawable.ic_action_stop);
+                    timer = new Timer();
+                    ini = new Timer();
+                    TimerTask tarefa = new TimerTask() {
+                        @Override
+                        public void run() {
+                            try {
+                                System.out.println("Hora: " + format.format(new Date().getTime()));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    timer.scheduleAtFixedRate(tarefa, 0, 1000);
+                    toast("Tarefa iniciada!");
+                    //Notificacao
+                    notificacao("Atividade iniciada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi iniciada!");
+
+                }else if(play == true){
+                    play = false;
+                    bt_curtir.setImageResource(R.drawable.ic_action_play);
+                    toast("Tarefa encerrada!");
+                    timer.cancel();
+                    //Notificacao
+                    notificacao("Atividade finalizada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi finalizada!");
+                }else if(!play){
+                    play = true;
                     bt_curtir.setImageResource(R.drawable.ic_action_stop);
                     timer = new Timer();
                     TimerTask tarefa = new TimerTask() {
@@ -167,10 +197,8 @@ public class SimpleAdapter extends BaseAdapter{
                     };
 
                     timer.scheduleAtFixedRate(tarefa, 0, 1000);
-                }else{
-                    bt_curtir.setImageResource(R.drawable.ic_action_play);
-                    toast("Tarefa encerrada!");
-                    timer.cancel();
+                    //Notificacao
+                    notificacao("Atividade re-iniciada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi re-iniciada!");
                 }
                 //Pega o post atual
                 post = posts().get(posts().size() - position - 1);
@@ -179,7 +207,6 @@ public class SimpleAdapter extends BaseAdapter{
                 post.curtidas = String.valueOf(valor_atual);
                 //Atualiza o elemento no banco
                 postDB.save(post);
-                toast("Tarefa iniciada!");
                 l.setText(post.curtidas);
             }
         });
@@ -223,6 +250,14 @@ public class SimpleAdapter extends BaseAdapter{
     private void toast(String msg){
 
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public void notificacao(String cTitle, String cText ){
+        int id = 1;
+        String contentTitle = cTitle;
+        String contentText  = cText;
+        Intent intent = new Intent(context, MainActivity.class);
+        NotificationUtil.create(context, intent, contentTitle, contentText, id);
     }
 
 }
