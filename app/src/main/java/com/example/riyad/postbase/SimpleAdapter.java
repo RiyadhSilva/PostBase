@@ -141,7 +141,8 @@ public class SimpleAdapter extends BaseAdapter{
 
         //Parte do Button (Curtir)
         final ImageButton bt_curtir = new ImageButton(context);
-        bt_curtir.setX(212f);
+        float x = ((View) bt_curtir.getParent()).getX() - 10f;
+        bt_curtir.setX(x);
         bt_curtir.setY(0f);
         bt_curtir.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -242,6 +243,7 @@ public class SimpleAdapter extends BaseAdapter{
         c.addView(bt_deletar, count);
         c.addView(bt_curtir, count);
         c.addView(d, count);
+        c.addView(l, count);
         count++;
 
         return c;
