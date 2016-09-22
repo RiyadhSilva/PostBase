@@ -36,7 +36,7 @@ public class PesquisarActivity extends AppCompatActivity implements AdapterView.
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.drawable.ic_action_search);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setTitle("Pesquisar Post");
+        actionBar.setTitle("Pesquisar Atividade");
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

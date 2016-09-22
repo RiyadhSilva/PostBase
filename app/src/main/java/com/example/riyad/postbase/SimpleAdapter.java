@@ -22,9 +22,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by riyad on 29/08/2016.
@@ -132,7 +136,7 @@ public class SimpleAdapter extends BaseAdapter{
         });
 
         //Parte do Button (Curtir)
-        ImageButton bt_curtir = new ImageButton(context);
+        final ImageButton bt_curtir = new ImageButton(context);
         bt_curtir.setX(212f);
         bt_curtir.setY(0f);
         bt_curtir.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
@@ -143,6 +147,24 @@ public class SimpleAdapter extends BaseAdapter{
             int  valor_atual;
             @Override
             public void onClick(View v) {
+                //Instancia um timer
+                Timer timer = null;
+                final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                if(timer == null){
+                    timer = new Timer();
+                    TimerTask tarefa = new TimerTask() {
+                        @Override
+                        public void run() {
+                            try {
+                                System.out.println("Hora: " + format.format(new Date().getTime()));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    timer.scheduleAtFixedRate(tarefa, 0, 1000);
+                }
                 //Pega o post atual
                 post = posts().get(posts().size() - position - 1);
                 //Incrementa o número de curtidas
@@ -150,7 +172,8 @@ public class SimpleAdapter extends BaseAdapter{
                 post.curtidas = String.valueOf(valor_atual);
                 //Atualiza o elemento no banco
                 postDB.save(post);
-                toast("Você curtiu isso!");
+                toast("Tarefa iniciada!");
+                bt_curtir.setImageResource(R.drawable.ic_stop);
                 l.setText(post.curtidas);
             }
         });
