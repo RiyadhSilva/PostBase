@@ -31,7 +31,7 @@ public class NotificationUtil {
         PendingIntent p = getPendingIntent(context, intent, id);
         //Cria a notificacao
         NotificationCompat.Builder b = new NotificationCompat.Builder(context);
-        b.setDefaults(Notification.DEFAULT_ALL); //Ativa a configuracao padrao
+        b.setDefaults(Notification.DEFAULT_SOUND); //Ativa a configuracao padrao
         b.setSmallIcon(R.mipmap.ic_launcher);
         b.setContentTitle(contentTitle);
         b.setContentText(contentText);

@@ -8,9 +8,11 @@ import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.support.v7.widget.ActionBarOverlayLayout;
 import android.support.v7.widget.CardView;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -141,7 +143,11 @@ public class SimpleAdapter extends BaseAdapter{
 
         //Parte do Button (Curtir)
         final ImageButton bt_curtir = new ImageButton(context);
-        bt_curtir.setX(212f);
+        //Display para pegar o tamanho da tela
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        int largura = display.getWidth() - 105;
+        bt_curtir.setX(largura);
         bt_curtir.setY(0f);
         bt_curtir.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
