@@ -84,7 +84,7 @@ public class SimpleAdapter extends BaseAdapter{
 
         //Parte do TextView (Custo)
         final TextView l = new TextView(context);
-        l.setText(atividades.get(position).custo);
+        l.setText(atividades.get(position).custo + " R$");
         l.setTextColor(Color.parseColor("#FAE3C6"));
         l.setTextSize(20f);
         l.setGravity(Gravity.BOTTOM + Gravity.RIGHT);
@@ -198,14 +198,7 @@ public class SimpleAdapter extends BaseAdapter{
                     //Notificacao
                     notificacao("Atividade re-iniciada!", "A atividade " + posts().get(posts().size() - position - 1).nome + " foi re-iniciada!");
                 }
-                //Pega o atividade atual
-                atividade = posts().get(posts().size() - position - 1);
-                //Incrementa o número de curtidas
-                valor_atual = Integer.parseInt(atividade.custo) + 1;
-                atividade.custo = String.valueOf(valor_atual);
-                //Atualiza o elemento no banco
-                atividadeDB.save(atividade);
-                l.setText(atividade.custo);
+
             }
         });
 
