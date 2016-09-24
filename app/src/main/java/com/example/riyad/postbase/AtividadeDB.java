@@ -7,22 +7,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by riyad on 30/08/2016.
  */
-public class PostDB extends SQLiteOpenHelper {
+public class AtividadeDB extends SQLiteOpenHelper {
     private static final String TAG = "sql";
     //Nome do banco
     public static final String NOME_BANCO = "post-data-base.sqlite";
     //Versao do banco
     private static final int VERSAO_BANCO = 1;
 
-    public PostDB(Context context){
+    public AtividadeDB(Context context){
         //context, nome do banco, factory, versao
         super(context, NOME_BANCO, null, VERSAO_BANCO);
     }
@@ -43,28 +41,28 @@ public class PostDB extends SQLiteOpenHelper {
 
     }
 
-    //Insere um novo post, ou atualiza se ja existe
-    public long save(Post post){
-        long id = post.id;
+    //Insere um novo atividade, ou atualiza se ja existe
+    public long save(Atividade atividade){
+        long id = atividade.id;
         SQLiteDatabase db = getWritableDatabase();
         try{
             ContentValues values = new ContentValues();
-            values.put("autor", post.autor);
-            values.put("data", post.data);
-            values.put("desc", post.desc);
-            values.put("curtidas", post.curtidas);
-            values.put("prioridade", post.prioridade);
+            values.put("autor", atividade.autor);
+            values.put("data", atividade.data);
+            values.put("desc", atividade.desc);
+            values.put("curtidas", atividade.curtidas);
+            values.put("prioridade", atividade.prioridade);
             if(id != 0){
-                String _id = String.valueOf(post.id);
+                String _id = String.valueOf(atividade.id);
                 String[]whereArgs = new String[]{_id};
-                //update post set values = ... where id=?
-                int count = db.update("post", values, "_id=?", whereArgs);
-                Log.d(TAG, "Post atualizado com sucesso");
+                //update atividade set values = ... where id=?
+                int count = db.update("atividade", values, "_id=?", whereArgs);
+                Log.d(TAG, "Atividade atualizado com sucesso");
                 return count;
             }else{
-                //insert into post values(...)
-                id = db.insert("post", "", values);
-                Log.d(TAG, "Post criado com sucesso");
+                //insert into atividade values(...)
+                id = db.insert("atividade", "", values);
+                Log.d(TAG, "Atividade criado com sucesso");
                 return id;
             }
         }finally {
@@ -72,12 +70,12 @@ public class PostDB extends SQLiteOpenHelper {
         }
     }
 
-    //Deleta o post
-    public int delete(Post post){
+    //Deleta o atividade
+    public int delete(Atividade atividade){
         SQLiteDatabase db = getWritableDatabase();
         try{
-            //delete from post where _id=?
-            int count = db.delete("post", "_id=?", new String[]{String.valueOf(post.id)});
+            //delete from atividade where _id=?
+            int count = db.delete("atividade", "_id=?", new String[]{String.valueOf(atividade.id)});
             Log.i(TAG, "Deletou [" + count + "] registro.");
             return count;
         }finally {
@@ -85,8 +83,8 @@ public class PostDB extends SQLiteOpenHelper {
         }
     }
 
-    //Consulta a lista com todos os posts
-    public List<Post> findAll(){
+    //Consulta a lista com todos os atividades
+    public List<Atividade> findAll(){
         SQLiteDatabase db = getWritableDatabase();
         try{
             //Select * from post
@@ -98,7 +96,7 @@ public class PostDB extends SQLiteOpenHelper {
     }
 
     //Consulta o post pelo autor
-    public List<Post> findAllByAutor(String autor){
+    public List<Atividade> findAllByAutor(String autor){
         SQLiteDatabase db = getWritableDatabase();
         try{
             //select * from post where autor=?
@@ -109,24 +107,24 @@ public class PostDB extends SQLiteOpenHelper {
         }
     }
 
-    //Le o cursor e cria a lista de posts
-    private List<Post> toList(Cursor c){
-        List<Post> posts = new ArrayList<Post>();
+    //Le o cursor e cria a lista de atividades
+    private List<Atividade> toList(Cursor c){
+        List<Atividade> atividades = new ArrayList<Atividade>();
         if(c.moveToFirst()){
             do{
-                Post post = new Post();
-                posts.add(post);
-                //Recupera os atributos de post
-                post.id = c.getLong(c.getColumnIndex("_id"));
-                post.autor = c.getString(c.getColumnIndex("autor"));
-                post.data  = c.getString(c.getColumnIndex("data"));
-                post.desc  = c.getString(c.getColumnIndex("desc"));
-                post.curtidas = c.getString(c.getColumnIndex("curtidas"));
-                post.prioridade = c.getString(c.getColumnIndex("prioridade"));
+                Atividade atividade = new Atividade();
+                atividades.add(atividade);
+                //Recupera os atributos de atividade
+                atividade.id = c.getLong(c.getColumnIndex("_id"));
+                atividade.autor = c.getString(c.getColumnIndex("autor"));
+                atividade.data  = c.getString(c.getColumnIndex("data"));
+                atividade.desc  = c.getString(c.getColumnIndex("desc"));
+                atividade.curtidas = c.getString(c.getColumnIndex("curtidas"));
+                atividade.prioridade = c.getString(c.getColumnIndex("prioridade"));
             } while(c.moveToNext());
         }
 
-        return posts;
+        return atividades;
     }
 
     //Executa um SQL

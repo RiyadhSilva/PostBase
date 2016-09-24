@@ -1,27 +1,22 @@
 package com.example.riyad.postbase;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Random;
-import java.util.StringTokenizer;
 
-public class NovoPost extends AppCompatActivity {
+public class NovaAtividade extends AppCompatActivity {
     private EditText autor;
     private EditText desc;
-    private Post post = new Post();
+    private Atividade atividade = new Atividade();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +42,7 @@ public class NovoPost extends AppCompatActivity {
         switch (view.getId()){
             case R.id.novo_post_cb_baixo:
                 if(checked){
-                    post.prioridade = "baixa";
+                    atividade.prioridade = "baixa";
                 }else{
                     toast("...");
 
@@ -55,7 +50,7 @@ public class NovoPost extends AppCompatActivity {
                 break;
             case R.id.novo_post_cb_normal:
                 if(checked){
-                    post.prioridade = "normal";
+                    atividade.prioridade = "normal";
                 }else{
                     toast("...");
 
@@ -63,7 +58,7 @@ public class NovoPost extends AppCompatActivity {
                 break;
             case R.id.novo_post_cb_alto:
                 if(checked){
-                    post.prioridade = "alta";
+                    atividade.prioridade = "alta";
                 }else{
                     toast("...");
 
@@ -73,23 +68,23 @@ public class NovoPost extends AppCompatActivity {
     }
 
     public void postar(View view){
-        post.autor = autor.getText().toString();
+        atividade.autor = autor.getText().toString();
         //Tratamento da data
         Date data = new Date(System.currentTimeMillis());
         String data_formatada = new SimpleDateFormat("dd/MM/yyyy").format(data);
-        post.data = data_formatada;
-        System.out.println("A data definda foi: " + post.data);
-        post.desc = desc.getText().toString();
+        atividade.data = data_formatada;
+        System.out.println("A data definda foi: " + atividade.data);
+        atividade.desc = desc.getText().toString();
         //Cria um valor aleatório para o número de curtidas
         Random gerador = new Random();
         int numero = gerador.nextInt(100);
-        post.curtidas = String.valueOf(numero);
+        atividade.curtidas = String.valueOf(numero);
 
 
         //Inicia conexao com o Banco
-        PostDB postDB = new PostDB(this);
-        //Salva o post criado no banco
-        postDB.save(post);
+        AtividadeDB atividadeDB = new AtividadeDB(this);
+        //Salva o atividade criado no banco
+        atividadeDB.save(atividade);
         toast("Criado com sucesso!");
 
         //Chama a Activity principal

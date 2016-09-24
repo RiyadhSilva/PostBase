@@ -31,23 +31,23 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         //Ativa a exibicao do icone na action bar
         actionBar.setDisplayShowHomeEnabled(true);
 
-        PostDB postDB = new PostDB(this);
+        AtividadeDB atividadeDB = new AtividadeDB(this);
         //Listview
         listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(new SimpleAdapter(this));
         listView.setOnItemClickListener(this);
 
 
-       List<Post> posts = postDB.findAll();
+       List<Atividade> atividades = atividadeDB.findAll();
 
-       for (Post p: posts) {
+       for (Atividade p: atividades) {
             System.out.println("id: " + p.id +" Autor: " + p.autor +" Desc: " + p.desc + " Data: " + p.data);
 
         }
 
 //        Intent intent = new Intent(this, ListViewActivity.class);
 //        startActivity(intent);
-//        System.out.println("Quantidade de posts: " + posts.size());
+//        System.out.println("Quantidade de atividades: " + atividades.size());
     }
 
 
@@ -70,7 +70,7 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         if(id == R.id.action_new){
-            Intent intent = new Intent(this, NovoPost.class);
+            Intent intent = new Intent(this, NovaAtividade.class);
             startActivity(intent);
             return true;
         }else if (id == R.id.action_search){
@@ -82,13 +82,13 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
             startActivity(intent);
             return true;
         } else if (id == R.id.action_delete){
-            PostDB postDB = new PostDB(this);
-            List<Post> posts = postDB.findAll();
-            for (Post p:
-                 posts) {
-                postDB.delete(p);
+            AtividadeDB atividadeDB = new AtividadeDB(this);
+            List<Atividade> atividades = atividadeDB.findAll();
+            for (Atividade p:
+                    atividades) {
+                atividadeDB.delete(p);
             }
-            toast("Todos os posts foram deletados!");
+            toast("Todos os atividades foram deletados!");
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             return true;

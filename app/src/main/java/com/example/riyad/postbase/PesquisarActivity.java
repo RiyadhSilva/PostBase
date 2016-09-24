@@ -1,13 +1,9 @@
 package com.example.riyad.postbase;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PesquisarActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -23,7 +18,7 @@ public class PesquisarActivity extends AppCompatActivity implements AdapterView.
     private TextView textView;
     private Button   bt_pesquisar;
     private ListView listView;
-    public List<Post> pesquisa_post;
+    public List<Atividade> pesquisa_atividade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +43,17 @@ public class PesquisarActivity extends AppCompatActivity implements AdapterView.
     public void pesquisar(View view){
         String autor_nome = autor.getText().toString();
         //Inicia conexão com o Banco de Dados
-        PostDB postDB = new PostDB(this);
-        //Pega todos os posts de um determinado autor
-        this.pesquisa_post = postDB.findAllByAutor(autor_nome);
+        AtividadeDB atividadeDB = new AtividadeDB(this);
+        //Pega todos os atividades de um determinado autor
+        this.pesquisa_atividade = atividadeDB.findAllByAutor(autor_nome);
         //Trata o resultado
-        if(this.pesquisa_post.size() == 0){
+        if(this.pesquisa_atividade.size() == 0){
             toast("Pesquisa sem resultados!");
         }else{
 
-            toast("A pesquisa encontrou: " + pesquisa_post.size() + " resultados!");
+            toast("A pesquisa encontrou: " + pesquisa_atividade.size() + " resultados!");
             listView = (ListView) findViewById(R.id.pesquisar_listview);
-            listView.setAdapter(new PesquisaAdapter(this, this.pesquisa_post));
+            listView.setAdapter(new PesquisaAdapter(this, this.pesquisa_atividade));
 
         }
 

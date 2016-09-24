@@ -1,31 +1,23 @@
 package com.example.riyad.postbase;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Icon;
-import android.support.v7.widget.ActionBarOverlayLayout;
 import android.support.v7.widget.CardView;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -46,10 +38,10 @@ public class SimpleAdapter extends BaseAdapter{
         this.context = context; // O contexto é necessário para criar a view
     }
 
-    public List<Post> posts() {
-        PostDB postDB = new PostDB(this.context);
-        List<Post> posts = postDB.findAll();
-        return posts;
+    public List<Atividade> posts() {
+        AtividadeDB atividadeDB = new AtividadeDB(this.context);
+        List<Atividade> atividades = atividadeDB.findAll();
+        return atividades;
 
     }
 
@@ -73,26 +65,26 @@ public class SimpleAdapter extends BaseAdapter{
         final CardView c = new CardView(context);
 
         //Inicia o banco
-        final PostDB postDB = new PostDB(this.context);
-        final List<Post> posts = postDB.findAll();
-        Collections.reverse(posts);
+        final AtividadeDB atividadeDB = new AtividadeDB(this.context);
+        final List<Atividade> atividades = atividadeDB.findAll();
+        Collections.reverse(atividades);
 
         //Parte do TextView (Nome do autor do post)
-        t.setText(posts.get(position).autor);
+        t.setText(atividades.get(position).autor);
         t.setGravity(Gravity.CENTER_HORIZONTAL);
         t.setTextColor(Color.parseColor("#FAA4BD"));
         t.setTextSize(15f);
 
-        //Parte do TextView (Post)
+        //Parte do TextView (Atividade)
         TextView p = new TextView(context);
         p.setGravity(Gravity.CENTER_VERTICAL + Gravity.CENTER_HORIZONTAL);
-        p.setText(posts.get(position).desc);
+        p.setText(atividades.get(position).desc);
         p.setTextColor(Color.parseColor("#FAE3C6"));
         p.setTextSize(20f);
 
         //Parte do TextView (Curtidas)
         final TextView l = new TextView(context);
-        l.setText(posts.get(position).curtidas);
+        l.setText(atividades.get(position).curtidas);
         l.setTextColor(Color.parseColor("#FAE3C6"));
         l.setTextSize(20f);
         l.setGravity(Gravity.BOTTOM + Gravity.RIGHT);
@@ -103,7 +95,7 @@ public class SimpleAdapter extends BaseAdapter{
         d.setTextColor(Color.parseColor("#FAE3C6"));
         d.setTextSize(10f);
         d.setGravity(Gravity.BOTTOM + Gravity.LEFT);
-        d.setText(posts.get(position).data);
+        d.setText(atividades.get(position).data);
 
         //Parte do Button (Deletar)
         final ImageButton bt_deletar = new ImageButton(context);
@@ -134,26 +126,26 @@ public class SimpleAdapter extends BaseAdapter{
                 a.setDuration(1000);
                 a.setFillAfter(true);
                 //Deleta o elemento na posicao
-                postDB.delete(posts.get(position));
+                atividadeDB.delete(atividades.get(position));
                 //
                 toast("Atividade excluída!");
                 c.startAnimation(a);
             }
         });
 
-        //Parte do Button (Curtir)
-        final ImageButton bt_curtir = new ImageButton(context);
+        //Parte do Button (Timer)
+        final ImageButton bt_timer = new ImageButton(context);
         //Display para pegar o tamanho da tela
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         int largura = display.getWidth() - 105;
-        bt_curtir.setX(largura);
-        bt_curtir.setY(0f);
-        bt_curtir.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
+        bt_timer.setX(largura);
+        bt_timer.setY(0f);
+        bt_timer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
                 .WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        bt_curtir.setImageResource(R.drawable.ic_action_play);
-        bt_curtir.setOnClickListener(new View.OnClickListener() {
-            Post post = new Post();
+        bt_timer.setImageResource(R.drawable.ic_action_play);
+        bt_timer.setOnClickListener(new View.OnClickListener() {
+            Atividade atividade = new Atividade();
             int  valor_atual;
             @Override
             public void onClick(View v) {
@@ -161,7 +153,7 @@ public class SimpleAdapter extends BaseAdapter{
                 Timer ini;
                 if(timer == null){
                     play = true;
-                    bt_curtir.setImageResource(R.drawable.ic_action_stop);
+                    bt_timer.setImageResource(R.drawable.ic_action_stop);
                     timer = new Timer();
                     ini = new Timer();
                     TimerTask tarefa = new TimerTask() {
@@ -182,14 +174,14 @@ public class SimpleAdapter extends BaseAdapter{
 
                 }else if(play == true){
                     play = false;
-                    bt_curtir.setImageResource(R.drawable.ic_action_play);
+                    bt_timer.setImageResource(R.drawable.ic_action_play);
                     toast("Tarefa encerrada!");
                     timer.cancel();
                     //Notificacao
                     notificacao("Atividade finalizada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi finalizada!");
                 }else if(!play){
                     play = true;
-                    bt_curtir.setImageResource(R.drawable.ic_action_stop);
+                    bt_timer.setImageResource(R.drawable.ic_action_stop);
                     timer = new Timer();
                     TimerTask tarefa = new TimerTask() {
                         @Override
@@ -206,14 +198,14 @@ public class SimpleAdapter extends BaseAdapter{
                     //Notificacao
                     notificacao("Atividade re-iniciada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi re-iniciada!");
                 }
-                //Pega o post atual
-                post = posts().get(posts().size() - position - 1);
+                //Pega o atividade atual
+                atividade = posts().get(posts().size() - position - 1);
                 //Incrementa o número de curtidas
-                valor_atual = Integer.parseInt(post.curtidas) + 1;
-                post.curtidas = String.valueOf(valor_atual);
+                valor_atual = Integer.parseInt(atividade.curtidas) + 1;
+                atividade.curtidas = String.valueOf(valor_atual);
                 //Atualiza o elemento no banco
-                postDB.save(post);
-                l.setText(post.curtidas);
+                atividadeDB.save(atividade);
+                l.setText(atividade.curtidas);
             }
         });
 
@@ -246,7 +238,7 @@ public class SimpleAdapter extends BaseAdapter{
         c.addView(t, count);
         c.addView(p, count);
         c.addView(bt_deletar, count);
-        c.addView(bt_curtir, count);
+        c.addView(bt_timer, count);
         c.addView(d, count);
         c.addView(l, count);
         count++;

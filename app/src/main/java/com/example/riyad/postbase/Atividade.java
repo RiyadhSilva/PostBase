@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by riyad on 30/08/2016.
  */
-public class Post implements Serializable{
+public class Atividade implements Serializable{
     private static final long serialVersionUID = 6601006766832473959L;
     public long id;
     public String autor;
@@ -20,7 +20,7 @@ public class Post implements Serializable{
 
     @Override
     public String toString() {
-        return "Post{" +
+        return "Atividade{" +
                 "id=" + id +
                 ", autor='" + autor + '\'' +
                 ", data='" + data + '\'' +

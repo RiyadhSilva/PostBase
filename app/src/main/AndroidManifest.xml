@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".ListViewActivity" />
         <activity
-            android:name=".NovoPost"
+            android:name=".NovaAtividade"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

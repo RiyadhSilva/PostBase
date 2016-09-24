@@ -13,21 +13,21 @@ import java.util.List;
  */
 public class PesquisaAdapter extends BaseAdapter {
     private Context context;
-    public List<Post> posts;
+    public List<Atividade> atividades;
     public TextView textView;
-    public PesquisaAdapter(Context context, List<Post> posts){
+    public PesquisaAdapter(Context context, List<Atividade> atividades){
         super();
         this.context = context;
-        this.posts = posts;
+        this.atividades = atividades;
     }
     @Override
     public int getCount() {
-        return posts.size();//Retorna a quantidade de items no adapter
+        return atividades.size();//Retorna a quantidade de items no adapter
     }
 
     @Override
     public Object getItem(int position) {
-        return posts.get(position).autor;
+        return atividades.get(position).autor;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class PesquisaAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         textView = new TextView(context);
-        textView.setText(posts.get(position).desc);
+        textView.setText(atividades.get(position).desc);
 
         return textView;
     }
