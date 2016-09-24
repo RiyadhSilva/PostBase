@@ -16,7 +16,7 @@ import java.util.List;
 public class AtividadeDB extends SQLiteOpenHelper {
     private static final String TAG = "sql";
     //Nome do banco
-    public static final String NOME_BANCO = "post-data-base.sqlite";
+    public static final String NOME_BANCO = "organize-data-base.sqlite";
     //Versao do banco
     private static final int VERSAO_BANCO = 1;
 
@@ -28,9 +28,9 @@ public class AtividadeDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d(TAG, "Criando a Tabela post...");
-        db.execSQL("create table if not exists post(_id integer primary key " +
-                "autoincrement, autor text, data text, desc text, curtidas text, " +
+        Log.d(TAG, "Criando a Tabela atividade...");
+        db.execSQL("create table if not exists atividade(_id integer primary key " +
+                "autoincrement, nome text, data text, desc text, custo text, " +
                 "prioridade text);");
         Log.d(TAG, "Tabela criada com sucesso");
 
@@ -47,22 +47,22 @@ public class AtividadeDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         try{
             ContentValues values = new ContentValues();
-            values.put("autor", atividade.autor);
+            values.put("nome", atividade.nome);
             values.put("data", atividade.data);
             values.put("desc", atividade.desc);
-            values.put("curtidas", atividade.curtidas);
+            values.put("custo", atividade.custo);
             values.put("prioridade", atividade.prioridade);
             if(id != 0){
                 String _id = String.valueOf(atividade.id);
                 String[]whereArgs = new String[]{_id};
                 //update atividade set values = ... where id=?
                 int count = db.update("atividade", values, "_id=?", whereArgs);
-                Log.d(TAG, "Atividade atualizado com sucesso");
+                Log.d(TAG, "Atividade atualizada com sucesso");
                 return count;
             }else{
                 //insert into atividade values(...)
                 id = db.insert("atividade", "", values);
-                Log.d(TAG, "Atividade criado com sucesso");
+                Log.d(TAG, "Atividade criada com sucesso");
                 return id;
             }
         }finally {
@@ -88,7 +88,7 @@ public class AtividadeDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         try{
             //Select * from post
-            Cursor c = db.query("post", null, null, null, null, null, null, null);
+            Cursor c = db.query("atividade", null, null, null, null, null, null, null);
             return toList(c);
         }finally {
             db.close();
@@ -99,8 +99,8 @@ public class AtividadeDB extends SQLiteOpenHelper {
     public List<Atividade> findAllByAutor(String autor){
         SQLiteDatabase db = getWritableDatabase();
         try{
-            //select * from post where autor=?
-            Cursor c = db.query("post", null, "autor='" + autor + "'", null, null, null, null);
+            //select * from post where nome=?
+            Cursor c = db.query("atividade", null, "nome='" + autor + "'", null, null, null, null);
             return toList(c);
         }finally {
             db.close();
@@ -116,10 +116,10 @@ public class AtividadeDB extends SQLiteOpenHelper {
                 atividades.add(atividade);
                 //Recupera os atributos de atividade
                 atividade.id = c.getLong(c.getColumnIndex("_id"));
-                atividade.autor = c.getString(c.getColumnIndex("autor"));
+                atividade.nome = c.getString(c.getColumnIndex("nome"));
                 atividade.data  = c.getString(c.getColumnIndex("data"));
                 atividade.desc  = c.getString(c.getColumnIndex("desc"));
-                atividade.curtidas = c.getString(c.getColumnIndex("curtidas"));
+                atividade.custo = c.getString(c.getColumnIndex("custo"));
                 atividade.prioridade = c.getString(c.getColumnIndex("prioridade"));
             } while(c.moveToNext());
         }

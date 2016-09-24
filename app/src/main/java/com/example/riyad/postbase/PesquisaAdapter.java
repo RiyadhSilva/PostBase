@@ -27,7 +27,7 @@ public class PesquisaAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return atividades.get(position).autor;
+        return atividades.get(position).nome;
     }
 
     @Override

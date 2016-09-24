@@ -41,7 +41,7 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
        List<Atividade> atividades = atividadeDB.findAll();
 
        for (Atividade p: atividades) {
-            System.out.println("id: " + p.id +" Autor: " + p.autor +" Desc: " + p.desc + " Data: " + p.data);
+            System.out.println("id: " + p.id +" Autor: " + p.nome +" Desc: " + p.desc + " Data: " + p.data);
 
         }
 

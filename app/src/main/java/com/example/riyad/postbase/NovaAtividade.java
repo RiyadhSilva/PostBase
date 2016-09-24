@@ -14,8 +14,9 @@ import java.util.Date;
 import java.util.Random;
 
 public class NovaAtividade extends AppCompatActivity {
-    private EditText autor;
+    private EditText nome;
     private EditText desc;
+    private EditText custo;
     private Atividade atividade = new Atividade();
 
     @Override
@@ -29,8 +30,9 @@ public class NovaAtividade extends AppCompatActivity {
         actionBar.setTitle("Nova atividade");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        autor = (EditText) findViewById(R.id.nova_atividade_et_1);
+        nome = (EditText) findViewById(R.id.nova_atividade_et_1);
         desc  = (EditText) findViewById(R.id.nova_atividade_et_2);
+        custo = (EditText) findViewById(R.id.nova_atividade_et_3);
 
 
     }
@@ -68,24 +70,19 @@ public class NovaAtividade extends AppCompatActivity {
     }
 
     public void criar(View view){
-        atividade.autor = autor.getText().toString();
+        atividade.nome = nome.getText().toString();
         //Tratamento da data
         Date data = new Date(System.currentTimeMillis());
         String data_formatada = new SimpleDateFormat("dd/MM/yyyy").format(data);
         atividade.data = data_formatada;
-        System.out.println("A data definda foi: " + atividade.data);
         atividade.desc = desc.getText().toString();
-        //Cria um valor aleatório para o número de curtidas
-        Random gerador = new Random();
-        int numero = gerador.nextInt(100);
-        atividade.curtidas = String.valueOf(numero);
-
+        atividade.custo = custo.getText().toString();
 
         //Inicia conexao com o Banco
         AtividadeDB atividadeDB = new AtividadeDB(this);
         //Salva o atividade criado no banco
         atividadeDB.save(atividade);
-        toast("Criado com sucesso!");
+        toast("Criada com sucesso!");
 
         //Chama a Activity principal
         Intent intent = new Intent(this, MainActivity.class);

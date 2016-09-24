@@ -11,10 +11,10 @@ import java.util.List;
 public class Atividade implements Serializable{
     private static final long serialVersionUID = 6601006766832473959L;
     public long id;
-    public String autor;
+    public String nome;
     public String data;
     public String desc;
-    public String curtidas;
+    public String custo;
     public String prioridade;
 
 
@@ -22,10 +22,10 @@ public class Atividade implements Serializable{
     public String toString() {
         return "Atividade{" +
                 "id=" + id +
-                ", autor='" + autor + '\'' +
+                ", autor='" + nome + '\'' +
                 ", data='" + data + '\'' +
                 ", desc='" + desc + '\'' +
-                ", curtidas='" + curtidas + '\'' +
+                ", curtidas='" + custo + '\'' +
                 ", prioridade='" + prioridade + '\'' +
                 '}';
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PostBase</string>
+    <string name="app_name">Organize</string>
     <string name="hello_world">Hello World!</string>
     <string name="action_new">Novo Card</string>
     <string name="action_search">Pesquisar</string>

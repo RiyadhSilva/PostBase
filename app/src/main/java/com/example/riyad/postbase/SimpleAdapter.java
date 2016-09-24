@@ -52,7 +52,7 @@ public class SimpleAdapter extends BaseAdapter{
     }
     @Override
     public Object getItem(int position){
-        return (this.posts().get(position).autor);//Retorna o objeto para essa posicao
+        return (this.posts().get(position).nome);//Retorna o objeto para essa posicao
     }
     @Override
     public long getItemId(int position){
@@ -70,7 +70,7 @@ public class SimpleAdapter extends BaseAdapter{
         Collections.reverse(atividades);
 
         //Parte do TextView (Nome do autor do post)
-        t.setText(atividades.get(position).autor);
+        t.setText(atividades.get(position).nome);
         t.setGravity(Gravity.CENTER_HORIZONTAL);
         t.setTextColor(Color.parseColor("#FAA4BD"));
         t.setTextSize(15f);
@@ -82,9 +82,9 @@ public class SimpleAdapter extends BaseAdapter{
         p.setTextColor(Color.parseColor("#FAE3C6"));
         p.setTextSize(20f);
 
-        //Parte do TextView (Curtidas)
+        //Parte do TextView (Custo)
         final TextView l = new TextView(context);
-        l.setText(atividades.get(position).curtidas);
+        l.setText(atividades.get(position).custo);
         l.setTextColor(Color.parseColor("#FAE3C6"));
         l.setTextSize(20f);
         l.setGravity(Gravity.BOTTOM + Gravity.RIGHT);
@@ -170,7 +170,7 @@ public class SimpleAdapter extends BaseAdapter{
                     timer.scheduleAtFixedRate(tarefa, 0, 1000);
                     toast("Tarefa iniciada!");
                     //Notificacao
-                    notificacao("Atividade iniciada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi iniciada!");
+                    notificacao("Atividade iniciada!", "A atividade " + posts().get(posts().size() - position - 1).nome + " foi iniciada!");
 
                 }else if(play == true){
                     play = false;
@@ -178,7 +178,7 @@ public class SimpleAdapter extends BaseAdapter{
                     toast("Tarefa encerrada!");
                     timer.cancel();
                     //Notificacao
-                    notificacao("Atividade finalizada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi finalizada!");
+                    notificacao("Atividade finalizada!", "A atividade " + posts().get(posts().size() - position - 1).nome + " foi finalizada!");
                 }else if(!play){
                     play = true;
                     bt_timer.setImageResource(R.drawable.ic_action_stop);
@@ -196,16 +196,16 @@ public class SimpleAdapter extends BaseAdapter{
 
                     timer.scheduleAtFixedRate(tarefa, 0, 1000);
                     //Notificacao
-                    notificacao("Atividade re-iniciada!", "A atividade " + posts().get(posts().size() - position - 1).autor + " foi re-iniciada!");
+                    notificacao("Atividade re-iniciada!", "A atividade " + posts().get(posts().size() - position - 1).nome + " foi re-iniciada!");
                 }
                 //Pega o atividade atual
                 atividade = posts().get(posts().size() - position - 1);
                 //Incrementa o número de curtidas
-                valor_atual = Integer.parseInt(atividade.curtidas) + 1;
-                atividade.curtidas = String.valueOf(valor_atual);
+                valor_atual = Integer.parseInt(atividade.custo) + 1;
+                atividade.custo = String.valueOf(valor_atual);
                 //Atualiza o elemento no banco
                 atividadeDB.save(atividade);
-                l.setText(atividade.curtidas);
+                l.setText(atividade.custo);
             }
         });
 
