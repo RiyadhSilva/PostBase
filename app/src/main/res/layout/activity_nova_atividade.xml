@@ -20,7 +20,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/novo_post_et_1"
+        android:id="@+id/nova_atividade_et_1"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
@@ -29,26 +29,32 @@
         android:layout_height="wrap_content"
         android:text="Descrição da atividade:"
         android:id="@+id/textView2"
-        android:layout_below="@+id/novo_post_et_1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_below="@+id/nova_atividade_et_1"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/novo_post_et_2"
+        android:id="@+id/nova_atividade_et_2"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Criar"
-        android:id="@+id/bt"
-        android:layout_marginBottom="49dp"
-        android:clickable="true"
-        android:onClick="postar"
-        android:layout_alignParentBottom="true"
+        android:text="Custo estimado(R$):"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/nova_atividade_et_2"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/nova_atividade_et_3"
+        android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -56,28 +62,30 @@
         android:layout_height="wrap_content"
         android:text="Defina a prioridade:"
         android:id="@+id/textView4"
-        android:layout_below="@+id/novo_post_et_2"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/nova_atividade_et_3"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="27dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Baixa"
-        android:id="@+id/novo_post_cb_baixo"
+        android:id="@+id/nova_atividade_cb_baixo"
+        android:checked="false"
+        android:clickable="true"
+        android:onClick="onCheckboxClicked"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp"
-        android:checked="false"
-        android:clickable="true"
-        android:onClick="onCheckboxClicked" />
+        android:layout_marginTop="36dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Normal"
-        android:id="@+id/novo_post_cb_normal"
-        android:layout_alignTop="@+id/novo_post_cb_baixo"
+        android:id="@+id/nova_atividade_cb_normal"
+        android:layout_alignTop="@+id/nova_atividade_cb_baixo"
         android:layout_centerHorizontal="true"
         android:checked="false"
         android:onClick="onCheckboxClicked" />
@@ -86,10 +94,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alta"
-        android:id="@+id/novo_post_cb_alto"
-        android:layout_alignTop="@+id/novo_post_cb_normal"
-        android:layout_alignRight="@+id/novo_post_et_2"
-        android:layout_alignEnd="@+id/novo_post_et_2"
+        android:id="@+id/nova_atividade_cb_alto"
+        android:layout_alignTop="@+id/nova_atividade_cb_normal"
+        android:layout_alignRight="@+id/nova_atividade_et_2"
+        android:layout_alignEnd="@+id/nova_atividade_et_2"
         android:checked="false"
         android:onClick="onCheckboxClicked" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Criar"
+        android:id="@+id/bt"
+        android:clickable="true"
+        android:onClick="criar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

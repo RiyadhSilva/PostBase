@@ -21,16 +21,16 @@ public class NovaAtividade extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_novo_post);
+        setContentView(R.layout.activity_nova_atividade);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.drawable.ic_action_add);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setTitle("Novo Card");
+        actionBar.setTitle("Nova atividade");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        autor = (EditText) findViewById(R.id.novo_post_et_1);
-        desc  = (EditText) findViewById(R.id.novo_post_et_2);
+        autor = (EditText) findViewById(R.id.nova_atividade_et_1);
+        desc  = (EditText) findViewById(R.id.nova_atividade_et_2);
 
 
     }
@@ -40,7 +40,7 @@ public class NovaAtividade extends AppCompatActivity {
         boolean checked = ((CheckBox)view).isChecked();
         //Verifica qual foi selecionada
         switch (view.getId()){
-            case R.id.novo_post_cb_baixo:
+            case R.id.nova_atividade_cb_baixo:
                 if(checked){
                     atividade.prioridade = "baixa";
                 }else{
@@ -48,7 +48,7 @@ public class NovaAtividade extends AppCompatActivity {
 
                 }
                 break;
-            case R.id.novo_post_cb_normal:
+            case R.id.nova_atividade_cb_normal:
                 if(checked){
                     atividade.prioridade = "normal";
                 }else{
@@ -56,7 +56,7 @@ public class NovaAtividade extends AppCompatActivity {
 
                 }
                 break;
-            case R.id.novo_post_cb_alto:
+            case R.id.nova_atividade_cb_alto:
                 if(checked){
                     atividade.prioridade = "alta";
                 }else{
@@ -67,7 +67,7 @@ public class NovaAtividade extends AppCompatActivity {
         }
     }
 
-    public void postar(View view){
+    public void criar(View view){
         atividade.autor = autor.getText().toString();
         //Tratamento da data
         Date data = new Date(System.currentTimeMillis());
