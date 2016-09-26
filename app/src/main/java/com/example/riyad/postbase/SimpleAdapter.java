@@ -3,6 +3,7 @@ package com.example.riyad.postbase;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.view.Display;
 import android.view.Gravity;
@@ -38,7 +39,7 @@ public class SimpleAdapter extends BaseAdapter{
         this.context = context; // O contexto é necessário para criar a view
     }
 
-    public List<Atividade> posts() {
+    public List<Atividade> atividades() {
         AtividadeDB atividadeDB = new AtividadeDB(this.context);
         List<Atividade> atividades = atividadeDB.findAll();
         return atividades;
@@ -48,11 +49,11 @@ public class SimpleAdapter extends BaseAdapter{
     @Override
     public int getCount(){
 
-        return this.posts().size();//Retorna a quantidade de items no adapter
+        return this.atividades().size();//Retorna a quantidade de items no adapter
     }
     @Override
     public Object getItem(int position){
-        return (this.posts().get(position).nome);//Retorna o objeto para essa posicao
+        return (this.atividades().get(position).nome);//Retorna o objeto para essa posicao
     }
     @Override
     public long getItemId(int position){
@@ -151,7 +152,7 @@ public class SimpleAdapter extends BaseAdapter{
             public void onClick(View v) {
                 final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
                 Timer ini;
-                if(timer == null){
+                if(timer == null || !play){
                     play = true;
                     bt_timer.setImageResource(R.drawable.ic_action_stop);
                     timer = new Timer();
@@ -170,33 +171,20 @@ public class SimpleAdapter extends BaseAdapter{
                     timer.scheduleAtFixedRate(tarefa, 0, 1000);
                     toast("Tarefa iniciada!");
                     //Notificacao
-                    notificacao("Atividade iniciada!", "A atividade " + posts().get(posts().size() - position - 1).nome + " foi iniciada!");
+                    notificacao("Atividade iniciada!", "A atividade " + atividades().get(position).nome + " foi iniciada!");
 
                 }else if(play == true){
                     play = false;
                     bt_timer.setImageResource(R.drawable.ic_action_play);
                     toast("Tarefa encerrada!");
                     timer.cancel();
+                    //Envia um e-mail para o administrador
+                    Intent emailIntent = new Intent(Intent.ACTION_VIEW);
+                    Uri data = Uri.parse("mailto:?subject=" + "blah blah subject" + "&body=" + "blah blah body" + "&to=" + "riyadhlevi@gmail.com");
+                    emailIntent.setData(data);
+                    context.startActivity(emailIntent);
                     //Notificacao
-                    notificacao("Atividade finalizada!", "A atividade " + posts().get(posts().size() - position - 1).nome + " foi finalizada!");
-                }else if(!play){
-                    play = true;
-                    bt_timer.setImageResource(R.drawable.ic_action_stop);
-                    timer = new Timer();
-                    TimerTask tarefa = new TimerTask() {
-                        @Override
-                        public void run() {
-                            try {
-                                System.out.println("Hora: " + format.format(new Date().getTime()));
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    };
-
-                    timer.scheduleAtFixedRate(tarefa, 0, 1000);
-                    //Notificacao
-                    notificacao("Atividade re-iniciada!", "A atividade " + posts().get(posts().size() - position - 1).nome + " foi re-iniciada!");
+                    notificacao("Atividade finalizada!", "A atividade " + atividades().get(position).nome + " foi finalizada!");
                 }
 
             }
@@ -204,19 +192,19 @@ public class SimpleAdapter extends BaseAdapter{
 
         //Parte do CardView
         int count = 0;
-        if(posts().get(posts().size() - position - 1).prioridade.equals("baixa")){
+        if(atividades().get(atividades().size() - position - 1).prioridade.equals("baixa")){
             c.setCardBackgroundColor(Color.parseColor("#EFEFEF"));
             t.setTextColor(Color.parseColor("#463239"));
             p.setTextColor(Color.parseColor("#463239"));
             l.setTextColor(Color.parseColor("#463239"));
             d.setTextColor(Color.parseColor("#463239"));
-        }else if (posts().get(posts().size() - position - 1).prioridade.equals("normal")){
+        }else if (atividades().get(atividades().size() - position - 1).prioridade.equals("normal")){
             c.setCardBackgroundColor(Color.parseColor("#CAEBF2"));
             t.setTextColor(Color.parseColor("#254D32"));
             p.setTextColor(Color.parseColor("#254D32"));
             l.setTextColor(Color.parseColor("#254D32"));
             d.setTextColor(Color.parseColor("#254D32"));
-        } else if (posts().get(posts().size() - position - 1).prioridade.equals("alta")){
+        } else if (atividades().get(atividades().size() - position - 1).prioridade.equals("alta")){
             c.setCardBackgroundColor(Color.parseColor("#FF3B3F"));
             t.setTextColor(Color.parseColor("#D0DB97"));
             p.setTextColor(Color.parseColor("#D0DB97"));
@@ -237,6 +225,9 @@ public class SimpleAdapter extends BaseAdapter{
         count++;
 
         return c;
+    }
+
+    private void bt_timerOnClick() {
     }
 
     private void toast(String msg){
