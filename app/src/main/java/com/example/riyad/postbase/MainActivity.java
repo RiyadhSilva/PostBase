@@ -92,6 +92,10 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             return true;
+        } else if (id == R.id.action_graph){
+            Intent intent = new Intent(this, GraphActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
