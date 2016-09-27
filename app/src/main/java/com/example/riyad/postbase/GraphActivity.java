@@ -1,6 +1,7 @@
 package com.example.riyad.postbase;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,10 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.Series;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -64,7 +70,13 @@ public class GraphActivity extends AppCompatActivity {
 
         //Incializa o grafico
         graph = (GraphView) findViewById(R.id.graph);
-        dados = new DataPoint[totalAtividades + 1];
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setMaxX(Double.parseDouble(totalGastos.multiply(new BigDecimal("1.5")).toString()));
+        graph.getViewport().setMaxY(Double.parseDouble(String.valueOf(totalAtividades * 2)));
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMinY(0);
+
+        dados = new DataPoint[totalAtividades];
         //Faz uma busca nos dados
         Integer intCustos = 0;
         Integer numAtividade = 1;
@@ -81,10 +93,32 @@ public class GraphActivity extends AppCompatActivity {
         }
 
         DataPoint ultimo = new DataPoint(intCustos*2, numAtividade+1);
-        this.adiciona(ultimo);
+
 
         series = new BarGraphSeries<>(dados);
+        series.setAnimated(true);
         graph.addSeries(series);
+
+        //Estilizando
+        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+            @Override
+            public int get(DataPoint data) {
+                return Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100);
+            }
+        });
+
+        series.setSpacing(50);
+        //Desenhar valores no topo
+        series.setDrawValuesOnTop(true);
+        series.setValuesOnTopColor(Color.BLACK);
+        //Adiciona um listener de evento
+        series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                toast("Gráfico de custo:  " + dataPoint);
+            }
+        });
+
     }
 
     public void adiciona(DataPoint atual){
