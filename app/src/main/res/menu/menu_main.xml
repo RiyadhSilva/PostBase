@@ -15,10 +15,10 @@
         android:title="@string/action_search"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/action_priority"
         android:icon="@drawable/ic_action_refresh"
-        android:title="@string/action_refresh"
-        app:showAsAction="ifRoom" />
+        android:title="Prioridade"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_graph"
         android:title="Gráficos"

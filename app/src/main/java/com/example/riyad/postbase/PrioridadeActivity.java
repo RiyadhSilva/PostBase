@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public  class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
-    protected final String TAG = "livro";
+public class PrioridadeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,30 +24,17 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.drawable.ic_action_rss);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setTitle("Time Line");
+        actionBar.setTitle("Prioridade");
         actionBar.setDisplayShowTitleEnabled(true);
         //Ativa a exibicao do icone na action bar
         actionBar.setDisplayShowHomeEnabled(true);
 
-        AtividadeDB atividadeDB = new AtividadeDB(this);
-        //Listview
         listView = (ListView) findViewById(R.id.listview);
-        listView.setAdapter(new SimpleAdapter(this));
+        listView.setAdapter(new PrioridadeAdapter(this));
         listView.setOnItemClickListener(this);
 
 
-       List<Atividade> atividades = atividadeDB.findAll();
-
-       for (Atividade p: atividades) {
-            System.out.println("id: " + p.id +" Autor: " + p.nome +" Desc: " + p.desc + " Data: " + p.data);
-
-        }
-
-//        Intent intent = new Intent(this, ListViewActivity.class);
-//        startActivity(intent);
-//        System.out.println("Quantidade de atividades: " + atividades.size());
     }
-
 
     public void onItemClick(AdapterView<?> parent, View view, int idx, long id){
         //Objeto selecionado, que nesse casso era um array de strings
@@ -75,8 +62,8 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
             Intent i = new Intent(this, PesquisarActivity.class);
             startActivity(i);
             return true;
-        } else if (id == R.id.action_priority){
-            Intent intent = new Intent(this, PrioridadeActivity.class);
+        } else if (id == R.id.action_refresh){
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.action_delete){
@@ -103,5 +90,4 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
 
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-
 }
