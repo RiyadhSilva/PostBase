@@ -45,6 +45,9 @@ public class SimpleAdapter extends BaseAdapter{
     private ImageButton bt_timer;
     private SimpleDateFormat format;
     private TimerTask tarefa;
+    private long inicio;
+    private String fim;
+    private Boolean first;
 
     public SimpleAdapter(Context context){
         super();
@@ -192,15 +195,22 @@ public class SimpleAdapter extends BaseAdapter{
 
     private void loadTimer(int position) {
         format = new SimpleDateFormat("HH:mm:ss");
+        first = true;
         if(timer == null || !play){
             play = true;
-            bt_timer.setImageResource(R.drawable.ic_action_stop);
             timer = new Timer();
             tarefa = new TimerTask() {
                 @Override
                 public void run() {
                     try {
-                        System.out.println("Hora: " + format.format(new Date().getTime()));
+                        if(first){
+                            inicio = System.currentTimeMillis();
+                            System.out.println("Inicio!\n"+"Hora: " + format.format(new Date().getTime()));
+                            first = false;
+                        }else{
+                            System.out.println("Hora: " + format.format(new Date().getTime()));
+                        }
+
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -208,20 +218,21 @@ public class SimpleAdapter extends BaseAdapter{
             };
 
             timer.scheduleAtFixedRate(tarefa, 0, 1000);
-            toast("Tarefa iniciada!");
-            //Notificacao
-            notificacao("Atividade iniciada!", "A atividade " + nomeAtividade(position) + " " +
-                    "foi iniciada!");
+            toast("A Tarefa " + nomeAtividade(position) + " foi iniciada!");
 
         }else if(play == true){
+            format = new SimpleDateFormat("mm:ss");
+            fim = format.format(System.currentTimeMillis() - inicio);
+            System.out.println("Terminou com: " + fim);
             play = false;
             bt_timer.setImageResource(R.drawable.ic_action_play);
-            toast("Tarefa encerrada!");
+            toast("Tarefa encerrada! Com: " + fim);
             timer.cancel();
             //Envia um e-mail para o administrador
             Intent emailIntent = new Intent(Intent.ACTION_VIEW);
             Uri data = Uri.parse("mailto:?subject=" + "Organize - Atividade finalizada!" + "&body="
-                    + "A atividade " + nomeAtividade(position) + " foi finalizada!" + "&to=" +
+                    + "A atividade " + nomeAtividade(position) + " foi finalizada! \nCom " + fim
+                    + " (Minutos:Segundos)"+ "&to=" +
                     "riyadhlevi@gmail.com");
             emailIntent.setData(data);
             context.startActivity(emailIntent);
@@ -242,6 +253,14 @@ public class SimpleAdapter extends BaseAdapter{
         c.addView(bt_timer, count);
         c.addView(d, count);
         c.addView(l, count);
+        c.setClickable(true);
+        c.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                toast("Você clicou em " + t.getText().toString());
+            }
+        });
         count++;
     }
 

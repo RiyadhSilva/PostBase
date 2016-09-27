@@ -1,24 +1,30 @@
 package com.example.riyad.postbase;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 public  class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     protected final String TAG = "livro";
     private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //Define o título da actionBar
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -51,8 +57,8 @@ public  class MainActivity extends AppCompatActivity implements AdapterView.OnIt
 
     public void onItemClick(AdapterView<?> parent, View view, int idx, long id){
         //Objeto selecionado, que nesse casso era um array de strings
-        String s = (String) parent.getAdapter().getItem(idx);
-        Toast.makeText(this, "Texto selecionado: " + s + ", posição: " + idx, Toast.LENGTH_SHORT).show();
+        CardView c = (CardView) parent.getAdapter().getItem(idx);
+        Toast.makeText(this, "Texto selecionado: " + c.getId() + ", posição: " + idx, Toast.LENGTH_SHORT).show();
     }
 
     //ActionBar

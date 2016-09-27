@@ -2,6 +2,7 @@ package com.example.riyad.postbase;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,7 +22,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
     }
     public void onItemClick(AdapterView<?> parent, View view, int idx, long id){
         //Objeto selecionado, que nesse casso era um array de strings
-        String s = (String) parent.getAdapter().getItem(idx);
-        Toast.makeText(this, "Texto selecionado: " + s + ", posição: " + idx, Toast.LENGTH_SHORT).show();
+        CardView c = (CardView) parent.getAdapter().getItem(idx);
+        Toast.makeText(this, "Texto selecionado: " + c.getId() + ", posição: " + idx, Toast.LENGTH_SHORT).show();
     }
 }
