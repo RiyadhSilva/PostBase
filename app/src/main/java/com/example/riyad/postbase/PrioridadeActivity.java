@@ -46,7 +46,7 @@ public class PrioridadeActivity extends AppCompatActivity implements AdapterView
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //Infla o menu com os botoes da actionbar
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_priority, menu);
         return true;
     }
 
@@ -62,7 +62,7 @@ public class PrioridadeActivity extends AppCompatActivity implements AdapterView
             Intent i = new Intent(this, PesquisarActivity.class);
             startActivity(i);
             return true;
-        } else if (id == R.id.action_refresh){
+        } else if (id == R.id.action_feed){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             return true;

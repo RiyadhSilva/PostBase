@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -53,51 +54,56 @@ public class PrioridadeAdapter extends BaseAdapter {
     }
 
     public List<Atividade> atividades() {
-        AtividadeDB atividadeDB = new AtividadeDB(context);
+        AtividadeDB atividadeDB = new AtividadeDB(this.context);
         List<Atividade> atividades = atividadeDB.findAll();
-        List<Atividade> altaList = new ArrayList<>();
-        List<Atividade> normalList = new ArrayList<>();
-        List<Atividade> baixaList = new ArrayList<>();
+        Collections.reverse(atividades);
+        List<Atividade> pdBaixa = new ArrayList<>();
+        List<Atividade> pdNormal = new ArrayList<>();
+        List<Atividade> pdAlta = new ArrayList<>();
+        int bcount = 0; int ncount = 0; int acount = 0;
         List<Atividade> retorno = new ArrayList<>();
-        //Conta o numero de atividades em grupo de prioridade
         for (Atividade a:
              atividades) {
-            if(a.prioridade.equals("alta")){
-                altaList.add(a);
-            }else if(a.prioridade.equals("normal")){
-                normalList.add(a);
-            }else if (a.prioridade.equals("baixa")){
-                baixaList.add(a);
+            if(a.prioridade.equals("baixa")){
+                pdBaixa.add(a);
+                bcount++;
+            } else if (a.prioridade.equals("normal")){
+                pdNormal.add(a);
+                ncount++;
+            } else if (a.prioridade.equals("alta")){
+                pdAlta.add(a);
+                acount++;
             }
         }
 
-        //Repassa os valores para a lista atividades
         for (Atividade a:
-             altaList) {
+             pdAlta) {
             retorno.add(a);
         }
+
         for (Atividade a:
-                normalList) {
+             pdNormal) {
             retorno.add(a);
         }
+
         for (Atividade a:
-                baixaList) {
+             pdBaixa) {
             retorno.add(a);
         }
-        Collections.reverse(retorno);
+
         return retorno;
 
     }
 
     public String nomeAtividade(int position){
         String nome;
-        nome = atividades().get(atividades().size() - position - 1).nome;
+        nome = atividades().get(position).nome;
         return nome;
     }
 
     public String prioridadeAtividade(int position){
         String prioridade;
-        prioridade = atividades().get(atividades().size() - position - 1).prioridade;
+        prioridade = atividades().get(position).prioridade;
         return prioridade;
     }
 
@@ -108,7 +114,7 @@ public class PrioridadeAdapter extends BaseAdapter {
     }
     @Override
     public Object getItem(int position){
-        return (this.atividades().get(position).nome);//Retorna o objeto para essa posicao
+        return (this.atividades().get(position));//Retorna o objeto para essa posicao
     }
     @Override
     public long getItemId(int position){
@@ -122,11 +128,11 @@ public class PrioridadeAdapter extends BaseAdapter {
 
         //Inicia o banco
         final AtividadeDB atividadeDB = new AtividadeDB(this.context);
-        final List<Atividade> atividades = atividadeDB.findAll();
+        final List<Atividade> atividades = atividades();
 
 
         //Parte do TextView (Nome do autor do post)
-        t.setText(atividades.get(position).nome);
+        t.setText(atividades.get(position).prioridade);
         t.setGravity(Gravity.CENTER_HORIZONTAL);
         t.setTextColor(Color.parseColor("#FAA4BD"));
         t.setTextSize(15f);
